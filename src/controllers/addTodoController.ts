@@ -16,7 +16,11 @@ const addTodoController = async (req: Request, res: Response) => {
     { username },
     {
       $push: {
-        [`lists.${Number(listIndex)}.todos`]: { text, isCompleted: false },
+        [`lists.${Number(listIndex)}.todos`]: {
+          text,
+          isCompleted: false,
+          isTrash: false,
+        },
       },
     }
   );
