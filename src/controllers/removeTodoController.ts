@@ -17,13 +17,15 @@ const removeTodoController = async (req: Request, res: Response) => {
   if (!user) return res.status(404).send("This user does not exist");
   if (
     Number(listIndex) >= user.lists.length ||
-    Number(todoIndex) >= user.lists[listIndex].todos.length
+    Number(todoIndex) >= user.lists[Number(listIndex)].todos.length
   )
     return res.status(400).send("Invalid request");
 
   if (user.lists[Number(listIndex)].todos[Number(todoIndex)].isTrash)
     user.lists[Number(listIndex)].todos.splice(Number(todoIndex), 1);
   else user.lists[Number(listIndex)].todos[Number(todoIndex)].isTrash = true;
+
+  await user.save();
 
   res.sendStatus(200);
 };
