@@ -11,7 +11,7 @@ const addListController = async (req: Request, res: Response) => {
   await userModel.updateOne(
     { username },
     {
-      $push: { lists: { title, todos: [] } },
+      $push: { lists: { title, isPublic: false, todos: [] } },
     }
   );
 
